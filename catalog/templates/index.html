@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Bem-vindo(a) ao nosso site!</h1>
+      <p class="lead">Aqui você poderá encontrar diversos projetos, avaliadores, autores e prêmios relacionados à sua área de interesse. Aproveite!</p>
+    </div>
+    <div class="col-md-6">
+      <img src="{% static 'img/image-removebg-preview.png' %}" alt="Imagem de boas-vindas" class="img-fluid">
+    </div>
+  </div>
+</div>
+{% endblock %}

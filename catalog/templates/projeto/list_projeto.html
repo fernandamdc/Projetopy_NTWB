@@ -1,0 +1,60 @@
+{% extends 'layouts/base.html' %} {% block content %}
+
+    <main>
+    <a href="{% url 'novo_projeto' %}" class="btn btn-primary">Cadastrar Projeto</a>
+    <a href="{% url 'projetos_nao_avaliados' %}" class="btn btn-primary">Projetos não avaliados</a>
+    <div class="d-flex justify-content-end mt-3">
+        <form method="GET">
+            <label for="order_by" class="me-2">Ordenar por nota:</label>
+            <select name="order_by" id="order_by">
+                <option value="">--</option>
+                <option value="nota_asc">Crescente</option>
+                <option value="nota_desc">Decrescente</option>
+            </select>
+            <button type="submit" class="btn btn-primary ms-2">Ordenar</button>
+        </form>
+    </div>
+    <table class="records mt-3">
+            <thead>
+                <tr>
+                    <th>Area</th>
+                    <th>Titulo</th>
+                    <th>Resumo</th>
+                    <th>Autor</th>
+                    <th>Nota</th>
+                    <th>DataEnvio</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for projeto in object_list %}
+                <tr>
+                    <td>{{projeto.area}}</td>
+                    <td><a href="{% url 'detalhe_projeto' projeto.id %}">{{projeto.titulo}}</a></td>
+                    <td>{{projeto.resumo}}</td>
+                    <td>{% for autor in projeto.autores.all %}
+                            {{ autor.nome }}<br>
+                        {% endfor %}</td>
+                    <td>{% if projeto.projetoavaliado %}
+                            {% for avaliacao in projeto.projetoavaliado.avaliador.all %}
+                                {{ projeto.projetoavaliado.nota }}
+                            {% endfor %}
+                        {% else %}
+                            Nenhuma nota foi adicionada ainda.
+                        {% endif %}</td>
+                    <td>{{projeto.dataEnvio}}</td>
+                    <td>
+                        <a href="/catalog/projeto/edit/{{projeto.id}}">
+                        <button type="button" class="button green">editar</button>
+                        </a>
+                        <a href="/catalog/projeto/delete/{{projeto.id}}">
+                        <button type="button" class="button red">excluir</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </main>
+    {% endblock %}

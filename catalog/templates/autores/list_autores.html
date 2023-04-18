@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %} {% block content %}
+
+
+    <main>
+         <a href="{% url 'novo_autor' %}">
+        <button type="button" class="button blue mobile" id="cadastrarAutor">Cadastrar Autor</button>
+         </a>
+        <table class="records">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Endereço</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for autor in object_list %}
+                <tr>
+                    <td>{{autor.nome}}</td>
+                    <td>{{autor.cpf}}</td>
+                    <td>{{autor.telefone}}</td>
+                    <td>{{autor.endereco}}</td>
+                    <td>
+                        <a href="/catalog/autor/edit/{{autor.id}}">
+                        <button type="button" class="button green">editar</button>
+                        </a>
+                         <a href="/catalog/autor/delete/{{autor.id}}">
+                        <button type="button" class="button red">excluir</button>
+                         </a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </main>
+    {% endblock %}

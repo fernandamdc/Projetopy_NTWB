@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+  <main>
+  <div class="container">
+    <a href="{% url 'list_projeto' %}" class="btn btn-primary">Voltar para lista de projetos</a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Área</th>
+          <th>Título</th>
+          <th>Resumo</th>
+          <th>Autores</th>
+          <th>Data de envio</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for projeto in projetos_nao_avaliados %}
+          <tr>
+            <td>{{ projeto.area }}</td>
+            <td>{{ projeto.titulo }}</td>
+            <td>{{ projeto.resumo }}</td>
+            <td>
+              {% for autor in projeto.autores.all %}
+                {{ autor.nome }}<br>
+              {% endfor %}
+            </td>
+            <td>{{ projeto.dataEnvio }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5">Não há projetos enviados e não avaliados.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+    </main>
+{% endblock %}

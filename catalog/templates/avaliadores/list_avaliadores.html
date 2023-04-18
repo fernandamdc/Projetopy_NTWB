@@ -1,0 +1,37 @@
+{% extends 'layouts/base.html' %} {% block content %}
+    <main>
+         <a href="{% url 'novo_avaliador' %}">
+        <button type="button" class="button blue mobile" id="cadastrarAvaliador">Cadastrar Avaliador</button>
+         </a>
+        <table class="records">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Endereço</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for avaliador in object_list %}
+                <tr>
+                    <td>{{avaliador.nome}}</td>
+                    <td>{{avaliador.cpf}}</td>
+                    <td>{{avaliador.telefone}}</td>
+                    <td>{{avaliador.endereco}}</td>
+                    <td>
+                        <a href="/catalog/avaliador/edit/{{avaliador.id}}">
+                        <button type="button" class="button green">editar</button>
+                        </a>
+                         <a href="/catalog/avaliador/delete/{{avaliador.id}}">
+                        <button type="button" class="button red">excluir</button>
+                         </a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </main>
+    {% endblock %}

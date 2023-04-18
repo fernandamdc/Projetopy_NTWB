@@ -1,0 +1,42 @@
+{% extends 'layouts/base.html' %} {% block content %}
+    <main>
+         <a href="{% url 'inserir_premio_view' %}">
+        <button type="button" class="button blue mobile" id="cadastrarPremio">Cadastrar Premio</button>
+         </a>
+        <table class="records">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Cronograma</th>
+                    <th>Autor</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for premio in premios %}
+                <tr>
+                    <td>{{premio.nome}}</td>
+                    <td>{{premio.descricao}}</td>
+                    <td>{{premio.cronograma}}</td>
+                    <td>
+                        {% for autor in premio.autor.all %}
+                            {{ autor.nome }}
+                            <br /><br />
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="/catalog/premio/edit/{{premio.id}}">
+                        <button type="button" class="button green">editar</button>
+                        </a>
+                         <a href="/catalog/premio/delete/{{premio.id}}">
+                        <button type="button" class="button red">excluir</button>
+                         </a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </main>
+    {% endblock %}

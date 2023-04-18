@@ -1,0 +1,87 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card mb-4">
+					<div class="card-header">
+						Área
+					</div>
+					<div class="card-body">
+						<p class="card-text">{{ projeto.area }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card mb-4">
+					<div class="card-header">
+						Título
+					</div>
+					<div class="card-body">
+						<p class="card-text">{{ projeto.titulo }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card mb-4">
+					<div class="card-header">
+						Resumo
+					</div>
+					<div class="card-body">
+						<p class="card-text">{{ projeto.resumo }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card mb-4">
+					<div class="card-header">
+						Detalhes
+					</div>
+					<div class="card-body">
+						<p class="card-text">{{ projeto.detalhes }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card mb-4">
+					<div class="card-header">
+						Data de Envio
+					</div>
+					<div class="card-body">
+						<p class="card-text">{{ projeto.dataEnvio|date:'d/m/Y' }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card mb-4">
+					<div class="card-header">
+						Notas
+					</div>
+					<div class="card-body">
+						{% if projeto.projetoavaliado %}
+							{% for avaliacao in projeto.projetoavaliado.avaliador.all %}
+								<p class="card-text">{{ projeto.projetoavaliado.nota }}</p>
+							{% endfor %}
+						{% else %}
+							<p class="card-text">Nenhuma nota foi adicionada ainda.</p>
+						{% endif %}
+
+						{% if not projeto.projetoavaliado %}
+							<form method="POST" action="{% url 'adicionar_nota' projeto.id %}">
+								{% csrf_token %}
+								{{ form.as_p }}
+								<button type="submit" class="btn btn-primary">Adicionar Nota</button>
+							</form>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

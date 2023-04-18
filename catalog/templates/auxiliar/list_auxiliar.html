@@ -1,0 +1,38 @@
+{% extends 'layouts/base.html' %} {% block content %}
+    <main>
+         <a href="{% url 'novo_auxiliar' %}">
+        <button type="button" class="button blue mobile" id="cadastrarAuxiliar">Cadastrar Auxiliar</button>
+         </a>
+        <table class="records">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Endereço</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for auxiliar in object_list %}
+                <tr>
+
+                    <td>{{auxiliar.nome}}</td>
+                    <td>{{auxiliar.cpf}}</td>
+                    <td>{{auxiliar.telefone}}</td>
+                    <td>{{auxiliar.endereco}}</td>
+                    <td>
+                        <a href="/catalog/auxiliar/edit/{{auxiliar.id}}">
+                        <button type="button" class="button green">editar</button>
+                        </a>
+                         <a href="/catalog/auxiliar/delete/{{auxiliar.id}}">
+                        <button type="button" class="button red">excluir</button>
+                         </a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </main>
+    {% endblock %}
